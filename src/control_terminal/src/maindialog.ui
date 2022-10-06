@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Task Allocation</string>
+   <string>Multi Robot Task Allocation</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../source/source.qrc">
@@ -109,7 +109,7 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>AgentX</string>
+       <string>UGV-5</string>
       </property>
      </widget>
     </item>
@@ -184,7 +184,7 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>Agent2</string>
+       <string>UAV-2</string>
       </property>
      </widget>
     </item>
@@ -232,7 +232,7 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>Agent1</string>
+       <string>UAV-1</string>
       </property>
      </widget>
     </item>
@@ -280,7 +280,7 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>Agent5</string>
+       <string>UAV-5</string>
       </property>
      </widget>
     </item>
@@ -328,7 +328,7 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>Agent4</string>
+       <string>UAV-4</string>
       </property>
      </widget>
     </item>
@@ -400,7 +400,7 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>Agent3</string>
+       <string>UAV-3</string>
       </property>
      </widget>
     </item>
@@ -421,7 +421,7 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>Agent9</string>
+       <string>UGV-4</string>
       </property>
      </widget>
     </item>
@@ -469,7 +469,7 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>Agent8</string>
+       <string>UGV-3</string>
       </property>
      </widget>
     </item>
@@ -517,7 +517,7 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>Agent7</string>
+       <string>UGV-2</string>
       </property>
      </widget>
     </item>
@@ -565,7 +565,7 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>Agent6</string>
+       <string>UGV-1</string>
       </property>
      </widget>
     </item>
@@ -964,7 +964,7 @@ border-radius:5px;
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>Vacancy_chain</string>
+       <string>PMRTA Algorithm</string>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -985,7 +985,7 @@ border-radius:5px;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="text">
-       <string>Auction_base</string>
+       <string>Genetic Algorithm</string>
       </property>
      </widget>
     </item>
@@ -1038,13 +1038,13 @@ border-radius:5px;
    </property>
    <property name="font">
     <font>
-     <pointsize>19</pointsize>
+     <pointsize>16</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
    <property name="text">
-    <string>Task Allocation</string>
+    <string>Multi Robot Task Allocation</string>
    </property>
   </widget>
   <widget class="QWidget" name="horizontalLayoutWidget_6">
