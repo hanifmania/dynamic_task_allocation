@@ -91,7 +91,8 @@ bool MainDialog::init_robots()
 
         ROS_INFO("Spwan robots");
         FILE *fp = NULL;
-        fp = popen("../../../src/allocation_common/spawn_robots.sh","w");
+        //fp = popen("../../../src/allocation_common/spawn_robots.sh","w");
+        fp = popen("~/catkin_ws/src/dynamic_task_allocation/src/allocation_common/spawn_robots.sh","w");
         if(fp == NULL)
             return false;
         pclose(fp);
