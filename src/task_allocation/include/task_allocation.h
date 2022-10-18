@@ -12,7 +12,7 @@
 #include <allocation_common/ReturnReward.h>
 #include <geometry_msgs/Point.h>
 #include <dynamic_reconfigure/server.h>
-// #include <dqn_ros/reward_cfgConfig.h>
+// #include <dqn_ros/reward_cfgConfig.h> //dqn_related
 // #include <../../dqn_ros/reward_cfgConfig.h>
 
 class Task_Allocation
@@ -28,7 +28,7 @@ public:
     void pubDrawing_info();
     void pauseAllocation();
     void stopAllocation();
-    // void ParamChanged(dqn_ros::reward_cfgConfig &config, uint32_t level);
+    // void ParamChanged(dqn_ros::reward_cfgConfig &config, uint32_t level); //dqn_related
 
     //for predition method
     bool try2explore_();
@@ -71,8 +71,8 @@ public:
     float Reward_R;
 
 private:
-    // dynamic_reconfigure::Server<dqn_ros::reward_cfgConfig> server;
-    // dynamic_reconfigure::Server<dqn_ros::reward_cfgConfig>::CallbackType f;
+    // dynamic_reconfigure::Server<dqn_ros::reward_cfgConfig> server; //dqn_related
+    // dynamic_reconfigure::Server<dqn_ros::reward_cfgConfig>::CallbackType f; //dqn_related
 
     ros::ServiceClient get_action_client_;
     ros::ServiceClient return_reward_client_;

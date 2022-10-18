@@ -21,8 +21,8 @@ Task_Allocation::Task_Allocation(int argc,char** argv)
     get_action_client_      =nh_->serviceClient<allocation_common::GetAction>("dqn_ros/get_action");
     return_reward_client_   =nh_->serviceClient<allocation_common::ReturnReward>("dqn_ros/return_reward");
     allocation_timer_       =nh_->createTimer(ros::Duration(0.05),&Task_Allocation::loopControl,this);
-    // f = boost::bind(&Task_Allocation::ParamChanged, this, _1, _2);
-    // server.setCallback(f);
+    // f = boost::bind(&Task_Allocation::ParamChanged, this, _1, _2); // dqn_related
+    // server.setCallback(f); //dqn_related
 
     my_behaviour_=new Behaviour(obstacles_);
 
@@ -1474,4 +1474,4 @@ void Task_Allocation::stopAllocation()
 //     Reward_C = config.Reward_C;
 //     Reward_E = config.Reward_E;
 //     Reward_R = config.Reward_R;
-// }
+// } //dqn_related

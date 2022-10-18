@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sdf version="1.4">
    <model name="Task">
-      <static>true</static>
+      <static>false</static>
       <link name="chassis">
-         <pose>0 0 0 0 0 0</pose>
+         <pose>0 0 5 0 0 0</pose>
          <inertial>
             <mass>31</mass>
-            <pose>0 0 0 0 0 0</pose>
+            <pose>0 0 5 0 0 0</pose>
             <inertia>
                <ixx>100</ixx>
                <ixy>0</ixy>
@@ -17,7 +17,7 @@
             </inertia>
          </inertial>
          <collision name="collision">
-            <pose>0 0 0 0 0 0</pose>
+            <pose>0 0 5 0 0 0</pose>
             <geometry>
                <mesh>
                   <scale>1 1 1</scale>
@@ -34,10 +34,13 @@
                      <mu2>0.1</mu2>
                   </ode>
                </friction>
+               <contact>
+                  <collide_without_contact>true</collide_without_contact>
+               </contact>
             </surface>
          </collision>
          <visual name="visual">
-            <pose>0 0 0 0 0 0</pose>
+            <pose>0 0 5 0 0 0</pose>
             <geometry>
                <mesh>
                   <scale>1 1 1</scale>

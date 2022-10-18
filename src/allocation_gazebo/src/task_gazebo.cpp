@@ -48,6 +48,19 @@ void Task_Gazebo::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
     // Output info
     std::cout<<model_name_.c_str()<<" has "<<task_model_->GetPluginCount()<<" plugins, "<<"taskID: "<<taskID_<<std::endl;
+    //task_model_->SetLinearVel(ignition::math::Vector3d(.3, 0, 0));
+
+    // Listen to the update event. This event is broadcast every
+      // simulation iteration.
+    updateConnection_ = event::Events::ConnectWorldUpdateBegin(std::bind(&Task_Gazebo::OnUpdate, this));
+}
+
+// Called by the world update start event
+void Task_Gazebo::OnUpdate()
+{
+    // Apply a small linear velocity to the model.
+    //std::cout<<model_name_.c_str()<<" started moving "<<task_model_->GetPluginCount()<<" with speed, "<<"taskID: "<<taskID_<<std::endl;
+    task_model_->SetLinearVel(ignition::math::Vector3d(.1, .1, 0));
 }
 
 

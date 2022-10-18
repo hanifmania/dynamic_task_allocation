@@ -161,12 +161,12 @@ void World_Gazebo::terminal_info_CB(const allocation_common::terminal2gazebo_inf
     TaskSDF.SetFromString(
                 "<sdf version='1.6'>\
                 <model name='Task'>\
-            <pose>1 0 0 0 0 0</pose>\
-            <static>true</static>\
+            <pose>1 0 5 0 0 0</pose>\
+            <static>false</static>\
             <link name='chassis'>\
-            <pose>0 0 0 0 0 0</pose>\
+            <pose>0 0 5 0 0 0</pose>\
             <collision name='collision'>\
-            <pose>0 0 0 0 0 0</pose>\
+            <pose>0 0 5 0 0 0</pose>\
             <geometry>\
             <mesh>\
             <scale>1 1 1</scale>\
@@ -175,7 +175,7 @@ void World_Gazebo::terminal_info_CB(const allocation_common::terminal2gazebo_inf
             </geometry>\
             </collision>\
             <visual name='visual'>\
-            <pose>0 0 0 0 0 0</pose>\
+            <pose>0 0 5 0 0 0</pose>\
             <geometry>\
             <mesh>\
             <scale>1 1 1</scale>\
@@ -199,6 +199,7 @@ void World_Gazebo::terminal_info_CB(const allocation_common::terminal2gazebo_inf
         sdf::ElementPtr pose = model->GetElement("pose");
         pose->AddValue("pose",task_pose,false,"new pose for different tasks");
         world_->InsertModelSDF(TaskSDF);
+        //model->SetLinearVel(ignition::math::Vector3d(0.1, 0.1, 0));
     }
 
 //    for(unsigned int i=0;i<_msg->all_allocation_task_info.size();i++)

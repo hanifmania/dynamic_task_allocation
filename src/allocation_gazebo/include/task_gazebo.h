@@ -24,10 +24,13 @@ private:
     int                                 taskID_;
     std::vector<int>                    destroy_tasks_;                      //the task which have been destroyed
 
+    event::ConnectionPtr                updateConnection_;
+
 public:
     Task_Gazebo();
     virtual ~Task_Gazebo();
     void    message_queue_thread();
+    void    OnUpdate();
 //    void    task_state_CB(const allocation_common::allocation_task_info::ConstPtr & _msg);
     
 protected:

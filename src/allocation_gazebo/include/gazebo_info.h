@@ -4,6 +4,7 @@
 /// \brief compile the code with Gazebo 8.0, there are many warning about "-Wdeprecated-declarations", ignored them
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
+//#include <functional>
 #include <algorithm>
 #include <assert.h>
 #include <vector_angle.h>
