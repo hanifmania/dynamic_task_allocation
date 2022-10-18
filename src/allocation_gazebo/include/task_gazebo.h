@@ -12,6 +12,7 @@ private:
 
     ros::NodeHandle*                    rosnode_;
     ros::Subscriber                     robot2task_sub_;
+    ros::Subscriber                     terminal2robot_sub_;                //scriber the terminal info
 
     boost::thread                       message_callback_queue_thread_;      //thead object for the running callback Thread.
     boost::mutex                        msgCB_lock_;                         //a mutex to lock access to fields that are used in ROS message callbacks
@@ -26,11 +27,15 @@ private:
 
     event::ConnectionPtr                updateConnection_;
 
+    Terminal2Robots_info                terminal_info_;                     //the current terminal info for allocation
+
 public:
     Task_Gazebo();
     virtual ~Task_Gazebo();
     void    message_queue_thread();
     void    OnUpdate();
+    void    update_terminal_info(const allocation_common::terminal2robot_info::ConstPtr & _msg);    
+    
 //    void    task_state_CB(const allocation_common::allocation_task_info::ConstPtr & _msg);
     
 protected:

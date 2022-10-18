@@ -158,24 +158,45 @@ void World_Gazebo::terminal_info_CB(const allocation_common::terminal2gazebo_inf
 
     // because the model of task is same, so we must modify the name of it before it register
     sdf::SDF TaskSDF;
+    // TaskSDF.SetFromString(
+    //             "<sdf version='1.6'>\
+    //             <model name='Task'>\
+    //         <pose>1 0 3 0 0 0</pose>\
+    //         <static>false</static>\
+    //         <link name='chassis'>\
+    //         <pose>0 0 3 0 0 0</pose>\
+    //         <collision name='collision'>\
+    //         <pose>0 0 3 0 0 0</pose>\
+    //         <geometry>\
+    //         <mesh>\
+    //         <scale>1 1 1</scale>\
+    //         <uri>file://meshes/task.dae</uri>\
+    //         </mesh>\
+    //         </geometry>\
+    //         </collision>\
+    //         <visual name='visual'>\
+    //         <pose>0 0 3 0 0 0</pose>\
+    //         <geometry>\
+    //         <mesh>\
+    //         <scale>1 1 1</scale>\
+    //         <uri>file://meshes/task.dae</uri>\
+    //         </mesh>\
+    //         </geometry>\
+    //         </visual>\
+    //         </link>\
+    //         <plugin name='task_gazebo' filename='libtask_gazebo.so' />\
+    //         </model>\
+    //         </sdf>");
+    
     TaskSDF.SetFromString(
                 "<sdf version='1.6'>\
                 <model name='Task'>\
-            <pose>1 0 5 0 0 0</pose>\
+            <pose>1 0 3 0 0 0</pose>\
             <static>false</static>\
             <link name='chassis'>\
-            <pose>0 0 5 0 0 0</pose>\
-            <collision name='collision'>\
-            <pose>0 0 5 0 0 0</pose>\
-            <geometry>\
-            <mesh>\
-            <scale>1 1 1</scale>\
-            <uri>file://meshes/task.dae</uri>\
-            </mesh>\
-            </geometry>\
-            </collision>\
+            <pose>0 0 3 0 0 0</pose>\
             <visual name='visual'>\
-            <pose>0 0 5 0 0 0</pose>\
+            <pose>0 0 3 0 0 0</pose>\
             <geometry>\
             <mesh>\
             <scale>1 1 1</scale>\

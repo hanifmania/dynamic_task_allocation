@@ -29,6 +29,7 @@
 #include <allocation_common/allocation_task_info.h>
 #include <allocation_common/robot2gazebo_info.h>
 #include <allocation_common/terminal2gazebo_info.h>
+#include <allocation_common/terminal2robot_info.h>
 #include <dynamic_reconfigure/server.h>
 //#include <allocation_gazebo/Robot_GazeboConfig.h>
 #include <Core.hpp>

@@ -9,8 +9,8 @@
     <arg name="debug"        default="false"/> 
     <arg name="paused"       default="false"/>
   </include> -->
-  <arg name="world_name" default="la-africana-plain"/>
-  <!-- <arg name="world_name" default="general"/> -->
+  <!-- <arg name="world_name" default="la-africana-plain"/> -->
+  <arg name="world_name" default="general"/>
 
   <env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find bebop_simulator)/models"/>
   <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find bebop_simulator)/models"/>

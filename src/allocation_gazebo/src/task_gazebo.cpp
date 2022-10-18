@@ -38,6 +38,12 @@ void Task_Gazebo::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
     rosnode_ = new ros::NodeHandle();
 
     //Subscribers
+    ros::SubscribeOptions so = ros::SubscribeOptions::create <allocation_common::terminal2robot_info>(
+                "/control_terminal/terminal2robot_info",100, boost::bind( &Task_Gazebo::update_terminal_info,this,_1),
+                ros::VoidPtr(), &message_queue_);
+    terminal2robot_sub_ = rosnode_->subscribe(so);
+
+    //Subscribers
 //    ros::SubscribeOptions so = ros::SubscribeOptions::create <allocation_common::allocation_task_info>(
 //                "/task_allocation/task_state_info",1, boost::bind( &Task_Gazebo::task_state_CB,this,_1),
 //                ros::VoidPtr(), &message_queue_);
@@ -58,9 +64,23 @@ void Task_Gazebo::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 // Called by the world update start event
 void Task_Gazebo::OnUpdate()
 {
+    
+    if (terminal_info_.allocation_mode==ALLOCATION_START)
+    {
+        task_model_->SetLinearVel(ignition::math::Vector3d(0.1, 0.1, 0.0));
+    }
+    else
+    {
+        task_model_->SetLinearVel(ignition::math::Vector3d(0.0, 0.0, 0.0));
+    }
+    //task_model_->SetLinearVel(ignition::math::Vector3d(.1, .1, 0));
     // Apply a small linear velocity to the model.
-    //std::cout<<model_name_.c_str()<<" started moving "<<task_model_->GetPluginCount()<<" with speed, "<<"taskID: "<<taskID_<<std::endl;
-    task_model_->SetLinearVel(ignition::math::Vector3d(.1, .1, 0));
+    //std::cout<<terminal_info_.allocation_mode<<" mode is on "<<std::endl;
+    // while (terminal_info_.allocation_mode==ALLOCATION_START)
+    // {
+    //     task_model_->SetLinearVel(ignition::math::Vector3d(.1, .1, 0));
+    // }
+    
 }
 
 
@@ -102,3 +122,13 @@ void Task_Gazebo::message_queue_thread()
 //    }
 //    msgCB_lock_.unlock();
 //}
+
+
+/// \brief terminal information CB, about the position and num of tasks or robots
+void Task_Gazebo::update_terminal_info(const allocation_common::terminal2robot_info::ConstPtr & _msg)
+{
+    msgCB_lock_.lock();
+    terminal_info_.allocation_mode=_msg->allocation_mode;
+    //std::cout<<_msg->allocation_mode<<" mode is on "<<std::endl;
+    msgCB_lock_.unlock();
+}
