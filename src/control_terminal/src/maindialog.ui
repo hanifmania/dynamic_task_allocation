@@ -1225,7 +1225,7 @@ border-radius:5px;
        <number>6</number>
       </property>
       <property name="maximum">
-       <number>20</number>
+       <number>40</number>
       </property>
       <property name="value">
        <number>16</number>
@@ -1312,7 +1312,7 @@ border-radius:5px;
        <number>6</number>
       </property>
       <property name="maximum">
-       <number>20</number>
+       <number>40</number>
       </property>
       <property name="value">
        <number>16</number>

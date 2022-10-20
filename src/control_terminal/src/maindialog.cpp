@@ -25,6 +25,8 @@ MainDialog::MainDialog(Terminal2Gazebo_info &terminal2gazebo_info, Terminal2Robo
 
     num_tasks_=0;
     num_robots_=0;
+    num_uavs_=0;
+    num_ugvs_=0;
 
     for(int i=0;i<MAXNUM_AGENT;i++)
     {
@@ -88,11 +90,13 @@ bool MainDialog::init_robots()
         is_robot_exsit_=true;
         //according to the UI input, change the param
         nh_.setParam("/control_terminal/robots_num", num_robots_);
+        nh_.setParam("/control_terminal/uavs_num", num_uavs_);
+        nh_.setParam("/control_terminal/ugvs_num", num_ugvs_);
 
-        ROS_INFO("Spwan robots");
+        ROS_INFO("Start robots");
         FILE *fp = NULL;
         //fp = popen("../../../src/allocation_common/spawn_robots.sh","w");
-        fp = popen("~/combine_ws/src/dynamic_task_allocation/src/allocation_common/spawn_robots.sh","w");
+        fp = popen("~/combine_ws/src/dynamic_task_allocation/src/allocation_common/start_robots.sh","w");
         if(fp == NULL)
             return false;
         pclose(fp);
@@ -226,6 +230,26 @@ void MainDialog::timerUpdate()
 /// \brief recreate a map with specified size
 bool MainDialog::on_init_map_clicked()
 {
+    // if(is_robot_exsit_)
+    //     return true;
+    // else
+    // {
+    //     is_robot_exsit_=true;
+    //     //according to the UI input, change the param
+    //     nh_.setParam("/control_terminal/robots_num", num_robots_);
+    //     nh_.setParam("/control_terminal/uavs_num", num_uavs_);
+    //     nh_.setParam("/control_terminal/ugvs_num", num_ugvs_);
+
+    //     ROS_INFO("Spwan robots");
+    //     FILE *fp = NULL;
+    //     //fp = popen("../../../src/allocation_common/spawn_robots.sh","w");
+    //     fp = popen("~/combine_ws/src/dynamic_task_allocation/src/allocation_common/spawn_robots.sh","w");
+    //     if(fp == NULL)
+    //         return false;
+    //     pclose(fp);
+    //     return true;
+    // }
+    
     if(is_robot_exsit_)
         return true;
     //num_tasks
@@ -234,9 +258,23 @@ bool MainDialog::on_init_map_clicked()
     task_info_show_.resize(num_tasks_);
     //num_robots
     num_robots_=0;
+    num_uavs_=0;
+    num_ugvs_=0;
     for(int i=0;i<MAXNUM_AGENT;i++)
         if(agent_vaild_[i]->isChecked())
             num_robots_++;
+            // if(i<5)
+            //     num_uavs_++;
+            // else
+            //     num_ugvs_++;
+    for(int i=0;i<5;i++)
+        if(agent_vaild_[i]->isChecked())
+            num_uavs_++;
+    
+    for(int i=5;i<MAXNUM_AGENT;i++)
+        if(agent_vaild_[i]->isChecked())
+            num_ugvs_++;
+
     terminal2robots_info_->all_allocation_robot_info.resize(num_robots_);
 
     if(ui->tasks_num_in->value() > ui->height_in->value()*ui->width_in->value())
@@ -335,6 +373,38 @@ bool MainDialog::on_init_map_clicked()
     }
     terminal2gazebo_info_->is_noise=ui->is_noise;
     terminal2gazebo_info_->isNew_allocation=true;
+
+    nh_.setParam("/control_terminal/robots_num", num_robots_);
+    nh_.setParam("/control_terminal/uavs_num", num_uavs_);
+    nh_.setParam("/control_terminal/ugvs_num", num_ugvs_);
+
+    ROS_INFO("Spwan robots");
+    FILE *fp = NULL;
+    //fp = popen("../../../src/allocation_common/spawn_robots.sh","w");
+    fp = popen("~/combine_ws/src/dynamic_task_allocation/src/allocation_common/spawn_robots.sh","w");
+    // if(fp == NULL)
+    //     return false;
+    pclose(fp);
+
+    // if(is_robot_exsit_)
+    //     return true;
+    // else
+    // {
+    //     is_robot_exsit_=true;
+    //     //according to the UI input, change the param
+    //     nh_.setParam("/control_terminal/robots_num", num_robots_);
+    //     nh_.setParam("/control_terminal/uavs_num", num_uavs_);
+    //     nh_.setParam("/control_terminal/ugvs_num", num_ugvs_);
+
+    //     ROS_INFO("Spwan robots");
+    //     FILE *fp = NULL;
+    //     //fp = popen("../../../src/allocation_common/spawn_robots.sh","w");
+    //     fp = popen("~/combine_ws/src/dynamic_task_allocation/src/allocation_common/spawn_robots.sh","w");
+    //     if(fp == NULL)
+    //         return false;
+    //     pclose(fp);
+    //     return true;
+    // }
 
     return true;
 }

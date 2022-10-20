@@ -44,6 +44,8 @@ public:
 
     ros::NodeHandle nh_;
     int  num_robots_;
+    int  num_uavs_;
+    int  num_ugvs_;
     int  num_tasks_;
 
     QTime   current_time_;
