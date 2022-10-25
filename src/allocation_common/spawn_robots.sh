@@ -23,6 +23,8 @@ do
     j=$i            
 
     roslaunch bebop_simulator spawn_bebop_mrta.launch id:="${j}" &
+    echo "Deploying Bebop ${j}"
+    sleep 1
 #    rosrun task_allocation  task_allocation_node Robot${j}  __name:=Robot${j}_task_allocation &
                
 #    rosrun gazebo_ros spawn_model -file $(rospack find gazebo_description)/models/Robot/model.sdf -sdf \
@@ -35,6 +37,8 @@ do
     j=$i            
 
     roslaunch bebop_simulator spawn_jackal_mrta.launch id:="${j}" &
+    echo "Deploying Jackal ${j}"
+    sleep 1
 #    rosrun task_allocation  task_allocation_node Robot${j}  __name:=Robot${j}_task_allocation &
                
 #    rosrun gazebo_ros spawn_model -file $(rospack find gazebo_description)/models/Robot/model.sdf -sdf \

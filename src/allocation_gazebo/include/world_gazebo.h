@@ -25,6 +25,9 @@ private:
     event::ConnectionPtr                    update_connection_;                  //pointer to the update event connection
 
     allocation_common::gazebo_robot_info    robots_info_;                        //the msg gazebo2world_info contain robots_info and tasks_info
+    allocation_common::gazebo_robot_info    uavs_info_;                          //the msg gazebo2world_info contain uavs_info and tasks_info
+    allocation_common::gazebo_robot_info    ugvs_info_;                          //the msg gazebo2world_info contain ugvs_info and tasks_info
+   
     allocation_common::gazebo_task_info     tasks_info_;
     std_msgs::Float64MultiArray             debug_msgs_;
 

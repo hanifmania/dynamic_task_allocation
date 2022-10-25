@@ -109,7 +109,7 @@ void World_Gazebo::model_states_CB(const gazebo_msgs::ModelStates::ConstPtr& _ms
     for(unsigned i=0; i<world_->ModelCount() ;i++)
     {
         // get info of robots and tasks, reference frame: world
-        if(_msg->name[i].find(robot_name)!=std::string::npos||_msg->name[i].find(task_name)!=std::string::npos)
+        if(_msg->name[i].find(robot_name)!=std::string::npos||_msg->name[i].find(task_name)!=std::string::npos||_msg->name[i].find(uav_name)!=std::string::npos||_msg->name[i].find(ugv_name)!=std::string::npos)
         {
             geometry_msgs::Pose     ps = _msg->pose[i];
             geometry_msgs::Twist    tw = _msg->twist[i];
@@ -146,15 +146,15 @@ void World_Gazebo::terminal_info_CB(const allocation_common::terminal2gazebo_inf
     }
     // each robot has different model, so we can use the factory msg to spwan robot model
     msgs::Factory  factory_msg;
-    for(unsigned i=0;i<_msg->robot_pos_x.size();i++)
-    {
-        // Model file to load
-        factory_msg.set_sdf_filename("model://Robot"+std::to_string(i));
-        // Pose to initialize the model to world
-        msgs::Set(factory_msg.mutable_pose(),ignition::math::Pose3d(ignition::math::Vector3d(_msg->robot_pos_x[i],_msg->robot_pos_y[i],0),ignition::math::Quaterniond(0, 0, 0)));
-        // Send the message
-        factoryPub_->Publish(factory_msg);
-    }
+    // for(unsigned i=0;i<_msg->robot_pos_x.size();i++)
+    // {
+    //     // Model file to load
+    //     factory_msg.set_sdf_filename("model://Robot"+std::to_string(i));
+    //     // Pose to initialize the model to world
+    //     msgs::Set(factory_msg.mutable_pose(),ignition::math::Pose3d(ignition::math::Vector3d(_msg->robot_pos_x[i],_msg->robot_pos_y[i],0),ignition::math::Quaterniond(0, 0, 0)));
+    //     // Send the message
+    //     factoryPub_->Publish(factory_msg);
+    // }
 
     // because the model of task is same, so we must modify the name of it before it register
     sdf::SDF TaskSDF;
@@ -276,6 +276,46 @@ bool World_Gazebo::update_model_info(void)
                 robots_info_.robot_twist.linear.y  = robot_twist.linear.y;
 
                 _gazebo2world_info.gazebo_robots_info.push_back(robots_info_);
+            }
+            // uavs info
+            else if(model_states_.name[i].compare(0, uav_name.size(), uav_name)==0)
+            {
+                int uav_id = atoi(model_states_.name[i].substr(uav_name.size(),1).c_str());
+
+                geometry_msgs::Pose  uav_pose  = model_states_.pose[i];
+                geometry_msgs::Twist uav_twist = model_states_.twist[i];
+                ignition::math::Quaterniond rot_qua(uav_pose.orientation.w, uav_pose.orientation.x,
+                                                    uav_pose.orientation.y, uav_pose.orientation.z);
+                double heading_theta = rot_qua.Yaw();
+                uavs_info_.robot_ID              = uav_id;
+                uavs_info_.robot_pose.position.x = uav_pose.position.x;
+                uavs_info_.robot_pose.position.y = uav_pose.position.y;
+                uavs_info_.robot_pose.theta      = heading_theta;
+                uavs_info_.robot_twist.angular   = uav_twist.angular.z;
+                uavs_info_.robot_twist.linear.x  = uav_twist.linear.x;
+                uavs_info_.robot_twist.linear.y  = uav_twist.linear.y;
+
+                _gazebo2world_info.gazebo_robots_info.push_back(uavs_info_);
+            }
+            // ugvs info
+            else if(model_states_.name[i].compare(0, ugv_name.size(), ugv_name)==0)
+            {
+                int ugv_id = atoi(model_states_.name[i].substr(ugv_name.size(),1).c_str());
+
+                geometry_msgs::Pose  ugv_pose  = model_states_.pose[i];
+                geometry_msgs::Twist ugv_twist = model_states_.twist[i];
+                ignition::math::Quaterniond rot_qua(ugv_pose.orientation.w, ugv_pose.orientation.x,
+                                                    ugv_pose.orientation.y, ugv_pose.orientation.z);
+                double heading_theta = rot_qua.Yaw();
+                ugvs_info_.robot_ID              = ugv_id + uav_name.size();
+                ugvs_info_.robot_pose.position.x = ugv_pose.position.x;
+                ugvs_info_.robot_pose.position.y = ugv_pose.position.y;
+                ugvs_info_.robot_pose.theta      = heading_theta;
+                ugvs_info_.robot_twist.angular   = ugv_twist.angular.z;
+                ugvs_info_.robot_twist.linear.x  = ugv_twist.linear.x;
+                ugvs_info_.robot_twist.linear.y  = ugv_twist.linear.y;
+
+                _gazebo2world_info.gazebo_robots_info.push_back(ugvs_info_);
             }
         }
         gazebo2world_pub_.publish(_gazebo2world_info);

@@ -47,6 +47,8 @@
 #define ZERO_QUATER  ignition::math::Quaterniond(0,0,0,0)
 
 const std::string robot_name="Robot";
+const std::string uav_name="bebop";
+const std::string ugv_name="jackal";
 const std::string task_name="Task";
 const double g = 9.8;
 
