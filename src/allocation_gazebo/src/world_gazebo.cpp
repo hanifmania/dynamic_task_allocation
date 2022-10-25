@@ -249,10 +249,14 @@ bool World_Gazebo::update_model_info(void)
             {
                 int task_id= atoi(model_states_.name[i].substr(task_name.size(),2).c_str());
                 geometry_msgs::Pose  task_pose = model_states_.pose[i];
+                geometry_msgs::Twist task_twist = model_states_.twist[i];
 
                 tasks_info_.task_ID = task_id;
                 tasks_info_.task_pose.x  = task_pose.position.x+0.5;
                 tasks_info_.task_pose.y  = task_pose.position.y+0.5;
+
+                tasks_info_.task_twist.x  = task_twist.linear.x;
+                tasks_info_.task_twist.y  = task_twist.linear.y;
 
                 _gazebo2world_info.gazebo_tasks_info.push_back(tasks_info_);
             }
